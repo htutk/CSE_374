@@ -1,6 +1,0 @@
-# Alex Htut
-# CSE_374 | HW_2
-# Problem_2
-# 04/17/2019
-
-alias private="chmod -R g=u,o-w \$@"
