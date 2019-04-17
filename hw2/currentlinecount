@@ -19,7 +19,7 @@ shift
 # total word count 
 # to the first file
 date >> $appendFile
-total="$(wc -w "$@")"
+total="$(wc -l "$@")"
 echo "${total}" >> $appendFile
 
 # for extra credit,
@@ -27,8 +27,8 @@ echo "${total}" >> $appendFile
 # only if a single file is given
 if [ $# -eq 1 ]
 then
-  wordCount="$(wc -w < "$1")"
-  echo "$wordCount total" >> $appendFile
+  lineCount="$(wc -l < "$1")"
+  echo "$lineCount total" >> $appendFile
 fi
 
 exit 0
