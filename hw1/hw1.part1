@@ -1,0 +1,96 @@
+Script started on Mon 08 Apr 2019 09:14:38 AM PDT
+]0;htutk@klaatu:~[?1034h[htutk@klaatu ~]$ #Getting Started
+]0;htutk@klaatu:~[htutk@klaatu ~]$ echo "gr[K[KGreetings, CSE 3[K[K374"
+Greetings, CSE374
+]0;htutk@klaatu:~[htutk@klaatu ~]$ passwd
+Changing password for user htutk.
+Changing password for htutk.
+(current) UNIX password: 
+Kerberos 5 Password: 
+passwd: Authentication token manipulation error
+]0;htutk@klaatu:~[htutk@klaatu ~]$ passwd
+Changing password for user htutk.
+Changing password for htutk.
+(current) UNIX password: 
+New password: 
+Retype new password: 
+passwd: all authentication tokens updated successfully.
+]0;htutk@klaatu:~[htutk@klaatu ~]$ date
+Mon Apr  8 09:15:36 PDT 2019
+]0;htutk@klaatu:~[htutk@klaatu ~]$ #File paths and dier[K[Krectory nvaig[K[K[K[Kavigation
+]0;htutk@klaatu:~[htutk@klaatu ~]$ echo "#[K$HOME"
+/homes/htutk
+]0;htutk@klaatu:~[htutk@klaatu ~]$ cd ~
+]0;htutk@klaatu:~[htutk@klaatu ~]$ mkdir temp[K[K[K[K[K[K[K[K[K[Kmkdir temp/
+]0;htutk@klaatu:~[htutk@klaatu ~]$ mv temp/ HWFiles/
+]0;htutk@klaatu:~[htutk@klaatu ~]$ cd HWFiles/
+]0;htutk@klaatu:~/HWFiles[htutk@klaatu HWFiles]$ echo 'da[K[K[K`datw[Ke` > now
+]0;htutk@klaatu:~/HWFiles[htutk@klaatu HWFiles]$ cp now before
+]0;htutk@klaatu:~/HWFiles[htutk@klaatu HWFiles]$ ls -l
+total 8
+-rw-rw-r-- 1 htutk htutk 28 Apr  8 09:16 before
+-rw-rw-r-- 1 htutk htutk 28 Apr  8 09:16 now
+]0;htutk@klaatu:~/HWFiles[htutk@klaatu HWFiles]$ touch tmpdata
+]0;htutk@klaatu:~/HWFiles[htutk@klaatu HWFiles]$ mv tmpdata test
+]0;htutk@klaatu:~/HWFiles[htutk@klaatu HWFiles]$ cd ..
+]0;htutk@klaatu:~[htutk@klaatu ~]$ rm -r HWFiles/
+]0;htutk@klaatu:~[htutk@klaatu ~]$ #Permissions
+]0;htutk@klaatu:~[htutk@klaatu ~]$ echo 'For my eyes only' > secretfile
+]0;htutk@klaatu:~[htutk@klaatu ~]$ ls -l
+total 8
+drwxrwxr-x 2 htutk htutk 4096 Apr  7 01:18 [0m[38;5;27mhw0[0m
+-rw-rw-r-- 1 htutk htutk    0 Apr  8 09:14 hw1.part1
+-rw-rw-r-- 1 htutk htutk   17 Apr  8 09:18 secretfile
+]0;htutk@klaatu:~[htutk@klaatu ~]$ chmod u-r [K[Kw secretfile
+]0;htutk@klaatu:~[htutk@klaatu ~]$ echo 'more text' >> [K[K temp[K[K[Kmp
+]0;htutk@klaatu:~[htutk@klaatu ~]$ a[Kcat < temp >> secretfile
+bash: temp: No such file or directory
+]0;htutk@klaatu:~[htutk@klaatu ~]$ cat < tmp >> secretfile
+bash: secretfile: Permission denied
+]0;htutk@klaatu:~[htutk@klaatu ~]$ ls -l
+total 12
+drwxrwxr-x 2 htutk htutk 4096 Apr  7 01:18 [0m[38;5;27mhw0[0m
+-rw-rw-r-- 1 htutk htutk    0 Apr  8 09:14 hw1.part1
+-r--rw-r-- 1 htutk htutk   17 Apr  8 09:18 secretfile
+-rw-rw-r-- 1 htutk htutk   10 Apr  8 09:18 tmp
+]0;htutk@klaatu:~[htutk@klaatu ~]$ chmod u-r secretfile
+]0;htutk@klaatu:~[htutk@klaatu ~]$ cat secretfile
+cat: secretfile: Permission denied
+]0;htutk@klaatu:~[htutk@klaatu ~]$ #Process Information
+]0;htutk@klaatu:~[htutk@klaatu ~]$ uname -a
+Linux klaatu.cs.washington.edu 4.9.84-1.el7.retpoline.x86_64 #1 SMP Sun Feb 25 15:56:57 PST 2018 x86_64 x86_64 x86_64 GNU/Linux
+]0;htutk@klaatu:~[htutk@klaatu ~]$ op [K[K[Ktop -u htutk
+[?1h=[?25l[H[2J(B[mtop - 09:20:09 up 42 days, 16:28,  6 users,  load average: 0.00, 0.00, 0.00(B[m[39;49m(B[m[39;49m[K
+Tasks:(B[m[39;49m[1m 159 (B[m[39;49mtotal,(B[m[39;49m[1m   1 (B[m[39;49mrunning,(B[m[39;49m[1m 158 (B[m[39;49msleeping,(B[m[39;49m[1m   0 (B[m[39;49mstopped,(B[m[39;49m[1m   0 (B[m[39;49mzombie(B[m[39;49m(B[m[39;49m[K
+%Cpu(s):(B[m[39;49m[1m  0.0 (B[m[39;49mus,(B[m[39;49m[1m  3.0 (B[m[39;49msy,(B[m[39;49m[1m  0.0 (B[m[39;49mni,(B[m[39;49m[1m 97.0 (B[m[39;49mid,(B[m[39;49m[1m  0.0 (B[m[39;49mwa,(B[m[39;49m[1m  0.0 (B[m[39;49mhi,(B[m[39;49m[1m  0.0 (B[m[39;49msi,(B[m[39;49m[1m  0.0 (B[m[39;49mst(B[m[39;49m(B[m[39;49m[K
+KiB Mem :(B[m[39;49m[1m  4046152 (B[m[39;49mtotal,(B[m[39;49m[1m  1366548 (B[m[39;49mfree,(B[m[39;49m[1m    77040 (B[m[39;49mused,(B[m[39;49m[1m  2602564 (B[m[39;49mbuff/cache(B[m[39;49m(B[m[39;49m[K
+KiB Swap:(B[m[39;49m[1m  2096124 (B[m[39;49mtotal,(B[m[39;49m[1m  2096124 (B[m[39;49mfree,(B[m[39;49m[1m        0 (B[m[39;49mused.(B[m[39;49m[1m  3447288 (B[m[39;49mavail Mem (B[m[39;49m(B[m[39;49m[K
+[K
+[7m  PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND                                            (B[m[39;49m[K
+(B[m13390 htutk     20   0  148472   4088   2760 S   0.0  0.1   0:00.13 sshd                                               (B[m[39;49m[K
+(B[m13398 htutk     20   0  115400   3352   2944 S   0.0  0.1   0:00.02 bash                                               (B[m[39;49m[K
+(B[m13531 htutk     20   0  114156   2120   1976 S   0.0  0.1   0:00.00 script                                             (B[m[39;49m[K
+(B[m13533 htutk     20   0  114160   1184   1032 S   0.0  0.0   0:00.00 script                                             (B[m[39;49m[K
+(B[m13534 htutk     20   0  115404   3432   3012 S   0.0  0.1   0:00.05 bash                                               (B[m[39;49m[K
+(B[m[1m14123 htutk     20   0  157736   4224   3536 R   0.0  0.1   0:00.01 top                                                (B[m[39;49m[K
+[J[H(B[mtop - 09:20:12 up 42 days, 16:28,  6 users,  load average: 0.00, 0.00, 0.00(B[m[39;49m(B[m[39;49m[K
+
+%Cpu(s):(B[m[39;49m[1m  0.2 (B[m[39;49mus,(B[m[39;49m[1m  0.2 (B[m[39;49msy,(B[m[39;49m[1m  0.0 (B[m[39;49mni,(B[m[39;49m[1m 99.7 (B[m[39;49mid,(B[m[39;49m[1m  0.0 (B[m[39;49mwa,(B[m[39;49m[1m  0.0 (B[m[39;49mhi,(B[m[39;49m[1m  0.0 (B[m[39;49msi,(B[m[39;49m[1m  0.0 (B[m[39;49mst(B[m[39;49m(B[m[39;49m[K
+KiB Mem :(B[m[39;49m[1m  4046152 (B[m[39;49mtotal,(B[m[39;49m[1m  1366340 (B[m[39;49mfree,(B[m[39;49m[1m    77244 (B[m[39;49mused,(B[m[39;49m[1m  2602568 (B[m[39;49mbuff/cache(B[m[39;49m(B[m[39;49m[K
+KiB Swap:(B[m[39;49m[1m  2096124 (B[m[39;49mtotal,(B[m[39;49m[1m  2096124 (B[m[39;49mfree,(B[m[39;49m[1m        0 (B[m[39;49mused.(B[m[39;49m[1m  3447084 (B[m[39;49mavail Mem (B[m[39;49m(B[m[39;49m[K
+[K
+
+(B[m[1m14123 htutk     20   0  157736   4260   3536 R   0.3  0.1   0:00.02 top                                                (B[m[39;49m[K
+(B[m13390 htutk     20   0  148472   4088   2760 S   0.0  0.1   0:00.13 sshd                                               (B[m[39;49m[K
+(B[m13398 htutk     20   0  115400   3352   2944 S   0.0  0.1   0:00.02 bash                                               (B[m[39;49m[K
+(B[m13531 htutk     20   0  114156   2120   1976 S   0.0  0.1   0:00.00 script                                             (B[m[39;49m[K
+(B[m13533 htutk     20   0  114160   1184   1032 S   0.0  0.0   0:00.00 script                                             (B[m[39;49m[K
+(B[m13534 htutk     20   0  115404   3432   3012 S   0.0  0.1   0:00.05 bash                                               (B[m[39;49m[K
+[J[?1l>[44;1H
+]0;htutk@klaatu:~[htutk@klaatu ~]$ #Searching
+]0;htutk@klaatu:~[htutk@klaatu ~]$ cat /etc/passwd | grep htutk
+[01;31m[Khtutk[m[K:x:28465:28465::/homes/[01;31m[Khtutk[m[K:/bin/bash
+]0;htutk@klaatu:~[htutk@klaatu ~]$ exit
+exit
+
+Script done on Mon 08 Apr 2019 09:20:49 AM PDT

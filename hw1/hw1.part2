@@ -1,0 +1,23 @@
+1. Alex Htut
+2. emacs
+3. `wc` prints out the counts of newlines, word and byte of for each file that is listed in the command argument.
+   `wc -l` prints out only the count of newlines for each file.
+4. output from `wc /etc/passwd`:   383   445 18550 /etc/passwd
+5. `kill -KILL [PID]` will kill a process. To find [PID], we should use `top -u [user_name]`.
+   To stop an endless loop or a single command, we can simply do `CTRL-C` to kill the process.
+6. $HOME stores my home directory: `/homes/htutk`
+7. $USER - stores the user name; on a shared computer like klaatu, there must be a variable to define each user.
+   $SHELL - stores the shell used by the user; in this case, it stores /bin/bash since it is the shell we are using.
+   The computer may want to know the type of shell the user is using.
+8. `find ~/ -type f -name "donotloseme"` will find "donotloseme" file in the whole directory. The flag -type will be
+   given 'f' to search for files and the flag -name will be given "donotloseme", which is the file name, to locate the
+   desired file.
+9. `which` command is mostly use to locate an executable file, not general file. For example. `which emacs` would print
+   out the FULL PATH to emacs executable, which in this case is stored in /usr/bin/emacs. If we run, `which donotloseme`
+   it would print out that there is no 'donotloseme' executable in () a long list of where 'which' looks to find the exe's.
+10. `echo Hello World! > hello` writes 'Hello World!' to 'hello' file. On the other hand, `echo Hello World!` just prints out
+    'Hello World!' to stdout, which is the shell in this case.
+11. `echo happy week > hello` will replace 'Hello World!' phrase which is written from the previous command. Thus, the 'hello'
+    file will now include 'happy week' only.
+12. If we run `echo wonderful day >> hello`, this will append 'wonderful day' to 'hello' file. Thus, the 'hello' file will now
+    have 'happy week\nwonderful day'.
