@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# Alex Htut
+# CSE_374 | HW_2
+# Problem_4
+# 04/17/2019
+
+if [ $# -lt 2 ]
+then
+  echo "$0 takes at least two args" 1>&2
+  exit 1
+fi
+
+appendFile="$1"
+shift
+
+# append date, word counts
+# of each file given, and
+# total word count 
+# to the first file
+date >> $appendFile
+total="$(wc -w "$@")"
+echo "${total}" >> $appendFile
+
+# for extra credit,
+# print the total line
+# only if a single file is given
+if [ $# -eq 1 ]
+then
+  wordCount="$(wc -w < "$1")"
+  echo "$wordCount total" >> $appendFile
+fi
+
+exit 0
