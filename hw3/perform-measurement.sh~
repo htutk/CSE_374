@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Alex Htut
+# CSE_374 | HW_3
+# perform-measurement.sh
+# 04/23/2019
+
+if [ $# -ne 1 ]; then
+  echo "Error: must provide a single URL" 1>&2
+fi
+
