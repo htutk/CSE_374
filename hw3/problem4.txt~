@@ -1,0 +1,17 @@
+# Alex Htut
+# CSE_374 | HW_3
+# problem4.txt
+# 04/25/2019
+
+Q1: 
+`set _label` command defines the name of x and y axes.
+Then, it defines the range of x axis to be from 0 to 100 inclusive.
+The name of the output eps file is set to be "scatterplot.eps".
+From "results.txt", the scatter plot, which is defined by `points`,
+is drawn using "columns" 1 and 3 with an empty title.
+
+Q2:
+There is no certain relationship between the popularity of a page 
+and its index's byte size. The points are scattered almost randomly 
+over the plot. Thus, our theory of the more popular sites have smaller
+index byte size is proven false by this experiment.

@@ -1,0 +1,10 @@
+# Alex Htut
+# CSE_374 | HW_3
+# readme
+# 04/24/2019
+
+In problem 2, parse.sh, I chose to use HTML tags to easily identify
+exactly 100 most popular websites. Since my main objective is to 
+analyze these particular websites, grepping with just `http` will 
+be highly inefficient. With HTML tags, I can pinpoint exactly where
+the websites that I tend to scrape are located.

@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Alex Htut
+# CSE_374 | HW_3
+# parse.sh
+# 04/25/2019
+
+if [ $# -lt 2 ]; then
+  echo "Error: please provide two files; 1st for output; 2nd for input"
+  exit 1
+fi
+
+if [ ! -e $2 ]; then
+  echo "Error: $2 does not exits."
+  exit 1
+fi
+
+outFile=$1
+inFile=$2
+
+urls="$(grep '<strong><a href="\(.*\)">.*' $inFile)"
+echo "$urls" > $outFile
+
+sed -i 's_.*<a href="__g' $outFile 
+sed -i 's_">.*__g' $outFile
+
+exit 0
