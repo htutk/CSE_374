@@ -8,3 +8,8 @@ exactly 100 most popular websites. Since my main objective is to
 analyze these particular websites, grepping with just `http` will 
 be highly inefficient. With HTML tags, I can pinpoint exactly where
 the websites that I tend to scrape are located.
+
+NOTE: Since this script uses HTML tags, which is targeted to 
+http://100bestwebsites.org/, it may not work with other HTML files.
+For general collection of urls, grepping just `http` should get 
+the job done.
