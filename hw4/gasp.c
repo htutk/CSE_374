@@ -9,7 +9,7 @@
 #include <string.h>
 #include <ctype.h>
 
-
+// MAX charallowed in line and pattern
 #define LINE_LIMIT 500
 #define PATTERN_LIMIT 100
 
@@ -18,13 +18,15 @@
 int ignore = 0;
 int number = 0;
 
+// function declarations
 void check_ignore(char* star);
 void print_matched_lines(int argc, char *argv[],
                          int pattern_index, char *pattern);
 int count_flags(int argc, char *argv[]);
+void check_args(int argc, int flag_count);
 
 /*
- * if ignore is TRUE, change 
+ * If ignore is TRUE, change 
  * the char array, pointed by str,
  * to lowercase.
  */
@@ -38,9 +40,10 @@ void check_ignore(char* str) {
 
 
 /*
- * iterates over each files, and
+ * Iterates over each files given in FILE in argv[], and
  * prints out the line where the pattern is found.
- * handles both ignore and number cases.
+ * FILE starts at pattern_index added one.
+ * Handles both ignore and number cases.
  */
 void print_matched_lines(int argc, char *argv[],
                          int pattern_index, char *pattern) {
@@ -54,7 +57,7 @@ void print_matched_lines(int argc, char *argv[],
 
     if (fp == NULL) {
       fprintf(stderr, "Error while opening %s.\n", file_name);
-      exit(EXIT_FAILURE);
+      continue;
     }
 
     // keeps track of the number of line
@@ -107,19 +110,53 @@ int count_flags(int argc, char *argv[]) {
   return flags_count;
 }
 
-
 /*
- * 
+ * Handles error if there is no enough args
+ * (at least three args, including program name, but excluding
+ * flags) to process.
+ * Exits with failure mode.
  */
-int main(int argc, char *argv[]) {
-  int flags_count = count_flags(argc, argv);
+void check_args(int argc, int flags_count) {
   if (argc - flags_count < 3) {
     fprintf(stderr, "Too little args! Exiting...\n");
     exit(EXIT_FAILURE);
   }
+}
+
+
+/*
+ * USAGE: ./gasp [OPTIONS] PATTERN FILE...
+ *
+ * [OPTIONS]:
+ *  -i: ignores case
+ *  -n: includes line numbers in matches found
+ *  NOTE: if any other letter-flag is given, it will be 
+ *        regarded as the pattern. The follwing args will
+ *        be marked as files as well.
+ *
+ * PATTERN:
+ *  targeted pattern substring
+ *  MAXCHAR is 100 including null terminator.
+ *
+ * FILE:
+ *  At least one file must be given.
+ *  throws error otherwise.
+ *  If any of the file has error loading,
+ *  exit with failure mode.
+ *  Otherwise, prints out all the matched lines
+ *  (with line numbers if -n flag is raised)
+ *  from each file to the stdout
+ */
+int main(int argc, char *argv[]) {
+  int flags_count = 0;
+  check_args(argc, flags_count);
+
+  flags_count = count_flags(argc, argv);
+  check_args(argc, flags_count);
 
   char pattern[PATTERN_LIMIT];
 
+  // offset by 1 for program name
   int pattern_index = 1 + flags_count;
 
   // fill pattern with null char
@@ -129,9 +166,11 @@ int main(int argc, char *argv[]) {
   // leaves 1 char for null terminator
   strncpy(pattern, argv[pattern_index], PATTERN_LIMIT - 1);
 
+  // pattern is transformed to all lowercase
+  // if ignore flag is raised
   check_ignore(pattern);
 
   print_matched_lines(argc, argv, pattern_index, pattern);
-
-  return 0;
+  
+  return EXIT_SUCCESS;
 }
