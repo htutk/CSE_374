@@ -70,7 +70,7 @@ void print_matched_lines(int argc, char *argv[],
       // store the original line in org_str
       char org_str[LINE_LIMIT];
       char *org_str_ptr = org_str;
-      
+
       if (ignore) {
         strncpy(org_str, str, sizeof(str));  // makes a copy only if -i is set.
       } else {
@@ -108,7 +108,7 @@ int count_flags(int argc, char *argv[]) {
     // strncmp returns 0 if the two strings are equal
     if (strncmp(&argv[i][0], "-", 1) == 0) {
       flags_count++;
-    
+
       if (strncmp(argv[i], "-n", 2) == 0 || strncmp(argv[i], "-i", 2) == 0) {
         if (strncmp(argv[i], "-n", 2) == 0) {
           number = 1;
@@ -194,7 +194,7 @@ int main(int argc, char *argv[]) {
 
   // pattern is transformed to all lowercase
   // if ignore flag is raised
-  check_ignore(pattern);   
+  check_ignore(pattern);
 
   print_matched_lines(argc, argv, pattern_index, pattern);
 
