@@ -42,7 +42,7 @@ void check_ignore(char* str) {
 /*
  * Iterates over each files given in FILE in argv[], and
  * prints out the line where the pattern is found.
- * FILE starts at pattern_index added one.
+ * FILE starts at pattern_index + 1.
  * Handles both ignore and number cases.
  */
 void print_matched_lines(int argc, char *argv[],
@@ -51,11 +51,12 @@ void print_matched_lines(int argc, char *argv[],
   // one index after the pattern_index
   for (int i = pattern_index + 1; i <= argc - 1; i++) {
     char *file_name = argv[i];
+
     char str[LINE_LIMIT];
 
     FILE *fp = fopen(file_name, "r");
 
-    if (fp == NULL) {
+    if (fp == NULL) {  // note that fopen is able to open folder
       fprintf(stderr, "Error while opening %s.\n", file_name);
       continue;
     }
@@ -68,7 +69,6 @@ void print_matched_lines(int argc, char *argv[],
     while (fgets(str, LINE_LIMIT - 1, fp) != NULL) {
       // store the original line in org_str
       char org_str[LINE_LIMIT];
-      memset(org_str, '\0', LINE_LIMIT);
       strncpy(org_str, str, sizeof(str));
 
       // str is changed to lowercase when ignore flag is raised.
@@ -80,7 +80,7 @@ void print_matched_lines(int argc, char *argv[],
         if (!number) {
           printf("%s:%s", file_name, org_str);
         } else {  // number flag is raised.
-          printf("%s: l%d : %s", file_name, line_num, org_str);
+          printf("%s:%d:%s", file_name, line_num, org_str);
         }
       }
       line_num++;
@@ -92,7 +92,9 @@ void print_matched_lines(int argc, char *argv[],
 
 
 /*
- * count the number of flags given in the cmd args.
+ * Counts the number of flags given in the cmd args, and returns it.
+ * Assumes that the flags exist only in 2rd and/or 3rd args.
+ * Sets global variables number, ignore accordingly.
  */
 int count_flags(int argc, char *argv[]) {
   int flags_count = 0;
@@ -109,6 +111,7 @@ int count_flags(int argc, char *argv[]) {
   }
   return flags_count;
 }
+
 
 /*
  * Handles error if there is no enough args
@@ -127,12 +130,20 @@ void check_args(int argc, int flags_count) {
 /*
  * USAGE: ./gasp [OPTIONS] PATTERN FILE...
  *
+ *
  * [OPTIONS]:
  *  -i: ignores case
  *  -n: includes line numbers in matches found
+ *  Assumes that flags will be given as 2rd and/or 3rd args.
  *  NOTE: if any other letter-flag is given, it will be 
- *        regarded as the pattern. The follwing args will
- *        be marked as files as well.
+ *        regarded as the pattern. Thus, the follwing args will
+ *        be marked as files as.
+ *
+ *  Example: ./gasp -u -i hello file1
+ *   In this case, since `-u` is an invalid flag,
+ *   `-i` will become the pattern (and the flag),
+ *   as hello and file1 are regarded as the filenames.
+ *   Note that -i flag will STILL be raised.
  *
  * PATTERN:
  *  targeted pattern substring
@@ -149,9 +160,10 @@ void check_args(int argc, int flags_count) {
  */
 int main(int argc, char *argv[]) {
   int flags_count = 0;
-  check_args(argc, flags_count);
+  check_args(argc, flags_count);  // makes sure at least 3 args exist
 
   flags_count = count_flags(argc, argv);
+
   check_args(argc, flags_count);
 
   char pattern[PATTERN_LIMIT];
@@ -171,6 +183,6 @@ int main(int argc, char *argv[]) {
   check_ignore(pattern);
 
   print_matched_lines(argc, argv, pattern_index, pattern);
-  
+
   return EXIT_SUCCESS;
 }

@@ -1,0 +1,65 @@
+Script started on Tue 30 Apr 2019 10:13:50 PM PDT
+]777;notify;Command completed;exit]0;htutk@localhost:~/CSE_374/hw4]7;file://localhost.localdomain/home/htutk/CSE_374/hw4[?1034h[htutk@localhost hw4]$ gdb gasp
+[?1034hGNU gdb (GDB) Red Hat Enterprise Linux 8.0.1-36.el7
+Copyright (C) 2017 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "x86_64-redhat-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+<http://www.gnu.org/software/gdb/documentation/>.
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from gasp...done.
+(gdb) break main
+Breakpoint 1 at 0x400b6d: file gasp.c, line 162.
+(gdb) break 58
+Breakpoint 2 at 0x40092b: file gasp.c, line 58.
+(gdb) run hello temp [K1
+Starting program: /home/htutk/CSE_374/hw4/gasp hello temp1
+Missing separate debuginfos, use: debuginfo-install glibc-2.17-260.el7.x86_64
+
+Breakpoint 1, main (argc=3, argv=0x7fffffffdbe8) at gasp.c:162
+warning: Source file is more recent than executable.
+162	  int flags_count = 0;
+(gdb) print argv[1]
+$1 = 0x7fffffffdf65 "hello"
+(gdb) continue
+Continuing.
+
+Breakpoint 2, print_matched_lines (argc=3, argv=0x7fffffffdbe8, 
+    pattern_index=1, pattern=0x7fffffffda90 "hello") at gasp.c:59
+59	    if (fp == NULL) {  // note that fopen is able to open folder
+(gdb) bt
+#0  print_matched_lines (argc=3, argv=0x7fffffffdbe8, pattern_index=1, 
+    pattern=0x7fffffffda90 "hello") at gasp.c:59
+#1  0x0000000000400c11 in main (argc=3, argv=0x7fffffffdbe8) at gasp.c:185
+(gdb) list
+54	
+55	    char str[LINE_LIMIT];
+56	
+57	    FILE *fp = fopen(file_name, "r");
+58	
+59	    if (fp == NULL) {  // note that fopen is able to open folder
+60	      fprintf(stderr, "Error while opening %s.\n", file_name);
+61	      continue;
+62	    }
+63	
+(gdb) print [K file_name
+$2 = 0x7fffffffdf6b "temp1"
+(gdb) print fp
+$3 = (FILE *) 0x603010
+(gdb) continue
+Continuing.
+temp1:hello how are you?
+temp1:hola is hello is spanish.
+[Inferior 1 (process 9368) exited normally]
+(gdb) q
+]777;notify;Command completed;gdb gasp]0;htutk@localhost:~/CSE_374/hw4]7;file://localhost.localdomain/home/htutk/CSE_374/hw4[htutk@localhost hw4]$ exit
+exit
+
+Script done on Tue 30 Apr 2019 10:18:26 PM PDT
