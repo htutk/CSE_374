@@ -69,7 +69,13 @@ void print_matched_lines(int argc, char *argv[],
     while (fgets(str, LINE_LIMIT - 1, fp) != NULL) {
       // store the original line in org_str
       char org_str[LINE_LIMIT];
-      strncpy(org_str, str, sizeof(str));
+      char *org_str_ptr = org_str;
+      
+      if (ignore) {
+        strncpy(org_str, str, sizeof(str));  // makes a copy only if -i is set.
+      } else {
+        org_str_ptr = str;
+      }
 
       // str is changed to lowercase when ignore flag is raised.
       check_ignore(str);
@@ -78,9 +84,9 @@ void print_matched_lines(int argc, char *argv[],
 
       if (match_found != NULL) {  // NULL if no match found
         if (!number) {
-          printf("%s:%s", file_name, org_str);
+          printf("%s:%s", file_name, org_str_ptr);
         } else {  // number flag is raised.
-          printf("%s:%d:%s", file_name, line_num, org_str);
+          printf("%s:%d:%s", file_name, line_num, org_str_ptr);
         }
       }
       line_num++;
@@ -100,15 +106,21 @@ int count_flags(int argc, char *argv[]) {
   int flags_count = 0;
   for (int i = 1; i < 3; i++) {
     // strncmp returns 0 if the two strings are equal
-    if (strncmp(argv[i], "-n", 2) == 0 || strncmp(argv[i], "-i", 2) == 0) {
+    if (strncmp(&argv[i][0], "-", 1) == 0) {
       flags_count++;
-      if (strncmp(argv[i], "-n", 2) == 0) {
-        number = 1;
+    
+      if (strncmp(argv[i], "-n", 2) == 0 || strncmp(argv[i], "-i", 2) == 0) {
+        if (strncmp(argv[i], "-n", 2) == 0) {
+          number = 1;
+        } else {
+          ignore = 1;
+        }
       } else {
-        ignore = 1;
+        printf("Error: %s is not a valid flag.\n", argv[i]);
       }
     }
   }
+
   return flags_count;
 }
 
@@ -134,15 +146,17 @@ void check_args(int argc, int flags_count) {
  * [OPTIONS]:
  *  -i: ignores case
  *  -n: includes line numbers in matches found
- *  Assumes that flags will be given as 2rd and/or 3rd args.
- *  NOTE: if any other letter-flag is given, it will be 
- *        regarded as the pattern. Thus, the follwing args will
- *        be marked as files as.
+ *  
+ *  Note:
+ *   Flags must be given as 2rd and/or 3rd args.
+ *   Invalid flags are regarded as flags, and will
+ *   print out an error message.
  *
- *  Example: ./gasp -u -i hello file1
+ *  Example: ./gasp -u -i -n hello file1
  *   In this case, since `-u` is an invalid flag,
- *   `-i` will become the pattern (and the flag),
- *   as hello and file1 are regarded as the filenames.
+ *   `-n` will become the pattern
+ *   (but NOT the flag since it is not in 2rd/3rd position),
+ *   and hello and file1 are regarded as the filenames.
  *   Note that -i flag will STILL be raised.
  *
  * PATTERN:
@@ -180,9 +194,10 @@ int main(int argc, char *argv[]) {
 
   // pattern is transformed to all lowercase
   // if ignore flag is raised
-  check_ignore(pattern);
+  check_ignore(pattern);   
 
   print_matched_lines(argc, argv, pattern_index, pattern);
 
   return EXIT_SUCCESS;
 }
+
