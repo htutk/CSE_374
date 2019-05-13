@@ -12,7 +12,7 @@ typedef struct TrieNode{
   // next[0] - next[7] for 2 - 9
   // next[8] for pound key
   struct TrieNode* next[NUM_NODES];
-  char *word;
+  char word[];
 } TrieNode;
 
 TrieNode* makeNode();

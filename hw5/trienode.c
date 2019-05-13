@@ -4,6 +4,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "trienode.h"
 
@@ -12,13 +13,14 @@ TrieNode* makeNode() {
   for (int i = 0; i < NUM_NODES; i++) {
     t->next[i] = NULL;
   }
-  t->word = NULL;
+  t->word[0] = (char) 0;
   return t;
 }
 
 
 void modifyWord(TrieNode *t, char *str) {
-  t->word = str;
+  char *wordPtr = t->word;
+  strncpy(wordPtr, str, strlen(str));
 }
 
 void freeTrie_private(TrieNode *t) {
@@ -42,6 +44,7 @@ void freeTrie_private(TrieNode *t) {
         ptr = t->next[i];
         freeTrie_private(ptr);
       }
+      //free(t->word);
       free(t);
     }
   } else {
@@ -57,7 +60,8 @@ void freeTrie(TrieNode *t) {
 #undef fp
 
 void printTrie(TrieNode *t) {
-  if (t->word != NULL) {
-    printf("%s\n", t->word);
+  char *wordPtr = t->word;
+  if (wordPtr != NULL) {
+    printf("%s\n", wordPtr);
   }
 }

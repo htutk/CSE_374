@@ -38,6 +38,10 @@ int main (int argc, char **argv) {
 
     while (fgets(str, MAX_CHAR, f) != NULL) {
         //printf("Word is %s", str);
+        
+        char strCpy[MAX_CHAR];
+        strncpy(strCpy, str, MAX_CHAR);
+
         char *word = str;
         char *series = wordToNum(word);
 
@@ -48,7 +52,7 @@ int main (int argc, char **argv) {
         char *test = testTemp;
 
         addWord(root, series, word);
-        
+
         processWord(root, series);
         printf("Test: ");
         scanf("%s", test);
@@ -119,7 +123,7 @@ int processWord(TrieNode *root, char *seq) {
         }
         printf("index: %d\n", index);
     }
-    printf("%s", current->word);
+    printTrie(current);
     return 0;
 }
 
@@ -138,7 +142,6 @@ int allNumbers(char *seq) {
 }
 
 void addWord(TrieNode *root, char *series, char *word) {
-    printf("Word in addWord is %s", word);
     // ascii 50-57 -> 2-9
     TrieNode *rootPtr = root;
     for (int i = 0; i < strlen(series); i++) {
@@ -150,15 +153,17 @@ void addWord(TrieNode *root, char *series, char *word) {
         printf("index of addWord is %d.\n", index);
     }
 
-    while (rootPtr->word != NULL) {
+    while (rootPtr->word[0] != (char) 0) {
         if(!rootPtr->next[NUM_NODES - 1]) {  // last index is pound key
             rootPtr->next[NUM_NODES - 1] = makeNode();
         }
         rootPtr = rootPtr->next[NUM_NODES - 1];
         printf("Pound made!\n");
     }
+    modifyWord(rootPtr, word);
+    printTrie(rootPtr);
 
-    rootPtr->word = word;
+    //strncpy(rootPtr->word, word, strlen(word));
     //printf("Written is %s.\n", rootPtr->word);
     //printTrie(rootPtr);
 }
