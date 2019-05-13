@@ -18,6 +18,8 @@ void startInteractive(TrieNode *root);
 int allNumbers(char *seq);
 int processWord(TrieNode *root, char *seq);
 
+void printNew(TrieNode *root);
+
 int main (int argc, char **argv) {
     if (argc != 2) {
         fprintf(stderr, "%s takes a single filename arg.\n", argv[0]);
@@ -33,19 +35,33 @@ int main (int argc, char **argv) {
 
     char str[MAX_CHAR];
 
+
     while (fgets(str, MAX_CHAR, f) != NULL) {
         //printf("Word is %s", str);
-        char *strPtr = str;
-        char *encryptedWord = wordToNum(str);
-        printf("Encrypted is %s.\n", encryptedWord);
-        printf("strPtr is %s.\n", strPtr);
+        char *word = str;
+        char *series = wordToNum(word);
 
-        addWord(root, encryptedWord, strPtr);
+        printf("Word is %s.", word);
+        printf("series is %s\n", series);
 
-        free(encryptedWord);
+        char testTemp[MAX_CHAR] = "";
+        char *test = testTemp;
+
+        addWord(root, series, word);
+        
+        processWord(root, series);
+        printf("Test: ");
+        scanf("%s", test);
+        processWord(root, test);
+        printf("\n");
+
+        free(series);
+        
     }
 
-    startInteractive(root);
+    //printNew(root);
+
+    //startInteractive(root);
 
     fclose(f);
     freeTrie(root);
@@ -53,16 +69,26 @@ int main (int argc, char **argv) {
     return EXIT_SUCCESS;
 }
 
+void printNew(TrieNode *root) {
+    printf("Print new\n");
+    TrieNode *current = root;
+    current = root->next[5];
+    current = current->next[5];
+    current = current->next[4];
+    current = current->next[1];
+    printf("%s\n", current->word);
+}
+
 void startInteractive(TrieNode *root) {
-    char str[MAX_CHAR] = "";
-    char *seq = str;
+    char input[MAX_CHAR] = "";
+    char *seq = input;
     printf("Enter \"exit\" to quit.\n");
     printf("Enter Key Sequence (or \"#\" for next word):\n> ");
-    scanf("%s", seq);
+    scanf("%s", input);
 
     while (strncmp(seq, "exit", 4)) {
-        if (allNumbers(seq)) {
-            if (processWord(root, seq)) {
+        if (allNumbers(input)) {
+            if (processWord(root, input)) {
                 printf("Not found in current directory.\n");
             }
             printf("Enter Key Sequence (or \"#\" for next word):\n> ");
@@ -71,7 +97,7 @@ void startInteractive(TrieNode *root) {
         }
         //printf("Strlen is %ld.\n", strlen(seq));
         
-        scanf("%s", seq);
+        scanf("%s", input);
     }
 
 }
@@ -112,6 +138,7 @@ int allNumbers(char *seq) {
 }
 
 void addWord(TrieNode *root, char *series, char *word) {
+    printf("Word in addWord is %s", word);
     // ascii 50-57 -> 2-9
     TrieNode *rootPtr = root;
     for (int i = 0; i < strlen(series); i++) {
@@ -131,9 +158,9 @@ void addWord(TrieNode *root, char *series, char *word) {
         printf("Pound made!\n");
     }
 
-    modifyWord(rootPtr, word);
-    //printf("Series is %s.\n", series);
-    printTrie(rootPtr);
+    rootPtr->word = word;
+    //printf("Written is %s.\n", rootPtr->word);
+    //printTrie(rootPtr);
 }
 
 /*
