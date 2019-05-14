@@ -1,13 +1,15 @@
-# CSE 374 Makefile exampmle for the talk/speak/shout program.
-# Version 1: Basic
+# Alex Htut
+# CSE 374 | HW5
+# 05/13/2019
+# Makefile: compiles trie.c, trienode.h, trienode.c
+# to produce the final executable t9.
 
-# When we just run "make", what gets built? This is a "phony" target
-# that just tells make what other targets to build.
-all: trie9
+# t9 is the final target executable we want.
+all: t9
 
 # The executable
-trie9: trie.o trienode.o
-	gcc -Wall -std=c11 -g -o trie9 trie.o trienode.o
+t9: trie.o trienode.o
+	gcc -Wall -std=c11 -g -o t9 trie.o trienode.o
 # Individual source files
 trienode.o: trienode.c trienode.h
 	gcc -Wall -std=c11 -g -c trienode.c
@@ -17,4 +19,4 @@ trie.o: trie.c trienode.h
 
 # A "phony" target to remove built files and backups
 clean:
-	rm -f *.o trie *~
+	rm -f *.o t9 *~
