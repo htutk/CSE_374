@@ -1,7 +1,7 @@
 // Alex Htut
 // CSE 374 | HW 5
 // 05/13/2019
-// trie.c 
+// trie.c
 // main file to implement the executable t9.
 // t9 takes in a single filename argument which
 // includes a 'word' dictionary, builds a trie-like
@@ -25,8 +25,8 @@
 void addWord(TrieNode *t, char *series, char *word);
 void startInteractive(TrieNode *root);
 int allNumbers(char *seq);
-char charToNum (char c);
-char* wordToNum (char *word);
+char charToNum(char c);
+char* wordToNum(char *word);
 TrieNode* processWord(TrieNode *root, char *seq, int hash);
 
 // processes each line in the file and adds the word to the
@@ -38,7 +38,7 @@ TrieNode* processWord(TrieNode *root, char *seq, int hash);
 // exits with failure if the args count is not 1.
 // exits with failure if the given file cannot be open.
 // exits with failure if malloc for the root node fails.
-int main (int argc, char **argv) {
+int main(int argc, char **argv) {
     if (argc != 2) {
         fprintf(stderr, "%s takes a single filename arg.\n", argv[0]);
         exit(EXIT_FAILURE);
@@ -80,7 +80,7 @@ int main (int argc, char **argv) {
 // the trie dictionary. If found, prints the word; if not, prints a message.
 // '#' is a special character; given a hashtag alone, it will continue the
 // search on the previous sequence. Given with a sequence, it will find the
-// next word of that sequence (but the sequence itself). 
+// next word of that sequence (but the sequence itself).
 // multiple hashtags are allowed.
 // terminates the program if the user enters 'exit'.
 void startInteractive(TrieNode *root) {
@@ -107,7 +107,7 @@ void startInteractive(TrieNode *root) {
             printf("Enter Key Sequence (or \"#\" for next word):\n> ");
         } else {
             printf("Enter a sequence of numbers (2-9):\n> ");
-        }        
+        }
         scanf("%s", input);
     }
 }
@@ -131,7 +131,7 @@ TrieNode* processWord(TrieNode *root, char *seq, int hash) {
             printf("Not found in current directory.\n");
             return NULL;
         }
-        if (current->next[index] != NULL) { 
+        if (current->next[index] != NULL) {
             current = current->next[index];
         } else if (hash) {  // this error message is for #-included seq.
             printf("There are no more T9onyms\n");
@@ -143,7 +143,7 @@ TrieNode* processWord(TrieNode *root, char *seq, int hash) {
     }
     if (current != NULL) {
         printTrie(current);
-    } 
+    }
     return current;
 }
 
@@ -164,12 +164,12 @@ int allNumbers(char *seq) {
 }
 
 // add word to the root dictionary by iterating through
-// series sequence. 
+// series sequence.
 // given '87' for the word 'up', it will create a node at
 // index 8 first (if NULL), move to that next node, create
 // a node at index 7 (if NULL), then writes the word.
-// if the word already exits, it will endlessly search for 
-// the '#" child, where the word field is NULL, and writes 
+// if the word already exits, it will endlessly search for
+// the '#" child, where the word field is NULL, and writes
 // the word where the first NULL (for word) is found.
 void addWord(TrieNode *root, char *series, char *word) {
     // ascii 50-57 -> 2-9
@@ -186,9 +186,9 @@ void addWord(TrieNode *root, char *series, char *word) {
     }
 
     while (rootPtr->word != NULL) {
-        if(!rootPtr->next[NUM_NODES - 1]) {  // last index is pound key
+        if (!rootPtr->next[NUM_NODES - 1]) {  // last index is pound key
             rootPtr->next[NUM_NODES - 1] = makeNode();
-            if(rootPtr->next[NUM_NODES - 1] == NULL) {
+            if (rootPtr->next[NUM_NODES - 1] == NULL) {
                 return;
             }
         }
@@ -215,7 +215,7 @@ char* wordToNum(char *word) {
         if (*ptr == '1') {
             printf("Word is %s", word);
             printf("result is %s.\n", result);
-            free(result);       
+            free(result);
             return NULL;
         }
         ptr++;
@@ -225,10 +225,10 @@ char* wordToNum(char *word) {
 
 // returns a corresponding Trie-digit of char c.
 // returns '1' if c is not a letter.
-char charToNum (char c) {
+char charToNum(char c) {
     int charNum = (int) c;
     int decryptedNum = charNum;
-    // to be a char (A-Z and a-z) 
+    // to be a char (A-Z and a-z)
     // charNum has to be 65-90 (A-Z)
     // or 97-122) (a-z)
     if (charNum >= 65 && charNum <= 90) {
@@ -244,3 +244,4 @@ char charToNum (char c) {
     '8', '9', '9', '9', '9'};
     return encrypted[decryptedNum];
 }
+

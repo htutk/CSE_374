@@ -9,7 +9,7 @@
 
 // A single TrieNode that stores char* to store a word,
 // and an array of next that has 9 TrieNodes, which are intialized to NULL.
-typedef struct TrieNode{
+typedef struct TrieNode {
   // next[0] - next[7] for 2 - 9
   // next[8] for pound key
   struct TrieNode* next[NUM_NODES];

@@ -1,7 +1,7 @@
 // Alex Htut
 // CSE 374 | HW 5
 // 05/13/2019
-// trienode.c 
+// trienode.c
 // main class to implement TrieNode class.
 // contains methods such as makeNode to make new nodes,
 // printTrie to print out the word, etc.
@@ -39,7 +39,6 @@ void freeTrie_private(TrieNode *t) {
     for (int i = 0; i < NUM_NODES; i++) {
       ptr = t->next[i];
       freeTrie_private(ptr);
-
     }
     if (t->word != NULL) {
       free(t->word);
