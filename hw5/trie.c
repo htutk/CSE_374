@@ -89,6 +89,10 @@ void startInteractive(TrieNode *root) {
     printf("Enter \"exit\" to quit.\n");
     printf("Enter Key Sequence (or \"#\" for next word):\n> ");
     scanf("%s", input);
+    if (feof(stdin)) {
+      printf("\n");
+      return;
+    }
 
     TrieNode *current = root;
 
@@ -109,6 +113,10 @@ void startInteractive(TrieNode *root) {
             printf("Enter a sequence of numbers (2-9):\n> ");
         }
         scanf("%s", input);
+        if (feof(stdin)) {
+          printf("\n");
+          return;
+        }
     }
 }
 
